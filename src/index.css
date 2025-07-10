@@ -40,13 +40,24 @@ body {
   left: 0; top: 0; bottom: 0;
   z-index: 10;
 }
+.sidebar-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 0 12px 0;
+  background: none;
+}
+.sidebar-icons {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 10px;
+  background: none;
+}
 .supplydna-logo {
-  font-size: 2rem;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-align: center;
-  margin-bottom: 40px;
-  color: var(--sidebar-text);
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 8px;
 }
 .supplydna-sidebar nav {
   flex: 1;
@@ -101,11 +112,23 @@ body {
   position: sticky;
   top: 0;
   z-index: 5;
+  border-bottom: 1.5px solid #e5e8ec;
 }
-.supplydna-header .section-title {
-  font-size: 1.5rem;
-  font-weight: 600;
+.header-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  background: transparent;
+}
+.section-title {
+  font-size: 1.3rem;
+  font-weight: 700;
   letter-spacing: 0.5px;
+  margin-left: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .supplydna-header .search-bar {
   flex: 1;
@@ -160,12 +183,14 @@ body {
 }
 .supplydna-header .user-actions .header-icon {
   font-size: 1.5em;
-  color: var(--neutral-dark);
+  color: #fff;
   cursor: pointer;
   transition: color 0.2s;
 }
-.supplydna-header .user-actions .header-icon:hover {
-  color: var(--primary);
+.supplydna-header .user-actions .header-icon:hover, .supplydna-header .user-actions .header-icon:focus {
+  color: #2ECC71;
+  background: rgba(255,255,255,0.08);
+  border-radius: 50%;
 }
 
 /* Dashboard Grid */
@@ -292,13 +317,161 @@ body {
   .supplydna-sidebar { width: 60px; }
   .supplydna-logo { font-size: 1.1rem; }
   .supplydna-sidebar li span { display: none; }
+  .supplydna-sidebar.open li span { display: inline; }
   .supplydna-main { margin-left: 60px; width: calc(100% - 60px);}
   .supplydna-dashboard { padding: 16px; gap: 16px;}
   .supplydna-card { padding: 16px;}
 }
 @media (max-width: 600px) {
-  .supplydna-header { flex-direction: column; height: auto; gap: 10px; padding: 10px;}
-  .supplydna-dashboard { padding: 6px; gap: 8px;}
+  .supplydna-sidebar {
+    width: 80vw;
+    min-width: 0;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    position: fixed;
+    z-index: 100;
+    transform: translateX(-100%);
+    transition: transform 0.3s;
+    box-shadow: 2px 0 16px rgba(44,62,80,0.18);
+  }
+  .supplydna-sidebar.open {
+    transform: translateX(0);
+  }
+  .sidebar-toggle-btn {
+    display: block !important;
+    position: fixed;
+    left: 10px;
+    top: 18px;
+    z-index: 130;
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(44,62,80,0.10);
+    padding: 2px 8px;
+  }
+  .supplydna-sidebar li.active, .supplydna-sidebar li:hover {
+    background: var(--sidebar-active);
+    color: #fff;
+    border-left: 6px solid var(--secondary);
+    font-weight: 700;
+    box-shadow: 0 2px 8px rgba(44,62,80,0.10);
+  }
+  .supplydna-main { margin-left: 0; width: 100vw; }
+  .supplydna-logo { font-size: 1rem; }
+  .supplydna-sidebar li span { display: none; }
+  .supplydna-sidebar.open li span { display: inline; }
+  .supplydna-recent-table, .component-details { font-size: 0.95em; }
+  .component-details { grid-template-columns: 1fr; gap: 6px; }
+  .supplydna-recent-table th, .supplydna-recent-table td { padding: 6px 4px; }
+  .lookup-input-row { flex-direction: column; gap: 4px; }
+  .lookup-actions { flex-direction: column; gap: 4px; }
+  .supplydna-main { display: block; }
+  .sidebar-open .supplydna-main { display: none; }
+  .header-row { gap: 8px; }
+  .section-title { font-size: 1.1rem; }
+  .supplydna-header { padding: 0 8px; height: 56px; }
+  .supplydna-dashboard {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 6px;
+  }
+  .supplydna-card {
+    margin-bottom: 16px;
+    min-width: 0;
+  }
+  .supplydna-recent-table, .component-details, .supplydna-quality-metrics, .supplydna-chart-legend {
+    overflow-x: auto;
+  }
+  .desktop-only { display: none !important; }
+  .mobile-only { display: flex !important; }
+  .supplydna-header .search-bar { display: none !important; }
+  .user-actions { display: none !important; }
+  .header-row { gap: 4px; }
+  .sidebar-toggle-btn, .enhanced-burger, .mobile-search-btn {
+    font-size: 2rem;
+    border: 1.5px solid #e5e8ec;
+    border-radius: 8px;
+    background: #fff;
+    color: #2C3E50;
+    transition: box-shadow 0.2s, border-color 0.2s, background 0.2s;
+    padding: 6px 10px;
+    margin-right: 2px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .mobile-search-btn {
+    margin-left: 0;
+  }
+  .mobile-search-btn:hover, .mobile-search-btn:focus, .enhanced-burger:hover, .enhanced-burger:focus {
+    background: #f3f6fa;
+    border-color: #3498DB;
+    box-shadow: 0 2px 8px rgba(44,62,80,0.10);
+    outline: none;
+  }
+  .mobile-search-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 60px;
+    background: #fff;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(44,62,80,0.10);
+    border-bottom: 1.5px solid #e5e8ec;
+  }
+  .mobile-search-input {
+    width: 90vw;
+    font-size: 1.1rem;
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: 1.5px solid #e5e8ec;
+    outline: none;
+  }
+  .sidebar-mobile-actions {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 18px 18px 0 18px;
+    border-bottom: 1px solid #e5e8ec;
+    margin-bottom: 12px;
+  }
+  .mobile-header-bar {
+    display: flex !important;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 56px;
+    background: #fff;
+    z-index: 200;
+    box-shadow: 0 2px 8px rgba(44,62,80,0.08);
+    padding: 0 10px;
+    border-bottom: 1.5px solid #e5e8ec;
+  }
+  .mobile-search-btn {
+    order: 1;
+    margin-right: auto;
+  }
+  .sidebar-toggle-btn {
+    order: 2;
+    margin-left: auto;
+  }
+  .supplydna-sidebar.open {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    left: 0;
+  }
+}
+@media (max-width: 400px) {
+  .supplydna-header .section-title { font-size: 1.1rem; }
+  .supplydna-header .search-bar input { width: 90vw; font-size: 0.95rem; }
+  .supplydna-card-title { font-size: 1rem; }
+  .supplydna-recent-table, .component-details { font-size: 0.9em; }
 }
 
 /* --- Enhanced Component Lookup Styles --- */
@@ -307,13 +480,43 @@ body {
 .lookup-input { flex: 1; border: 1px solid #BDC3C7; border-radius: 6px; padding: 8px 12px; }
 .lookup-btn { background: #3498DB; color: #fff; border: none; border-radius: 6px; padding: 8px 18px; }
 .uuid-chip { background: #ECF0F1; color: #2980B9; border-radius: 12px; padding: 2px 10px; font-size: 0.95em; }
-.status-badge { margin-left: 10px; border-radius: 8px; padding: 2px 10px; font-size: 0.95em; }
-.status-badge.success { background: #2ECC71; color: #fff; }
-.status-badge.error { background: #E74C3C; color: #fff; }
+.status-badge {
+  margin-left: 10px;
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-size: 1em;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  animation: fadeIn 0.3s;
+}
+.status-badge.success {
+  background: #eafaf1;
+  color: #27AE60;
+  border: 1.5px solid #27AE60;
+}
+.status-badge.error {
+  background: #fff0f0;
+  color: #E74C3C;
+  border: 1.5px solid #E74C3C;
+}
 .lookup-actions { display: flex; gap: 8px; margin-bottom: 10px; }
 .lookup-action-btn { flex: 1; background: #fff; border: 1px solid #3498DB; color: #3498DB; border-radius: 6px; padding: 6px 0; }
 .cancel-btn { background: #E74C3C; color: #fff; border: none; border-radius: 6px; padding: 6px 0; width: 100%; margin-top: 6px; }
-.lookup-error { color: #E74C3C; text-align: center; margin-bottom: 8px; }
+.lookup-error {
+  color: #E74C3C;
+  background: #fff0f0;
+  border: 1.5px solid #E74C3C;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  animation: fadeIn 0.3s;
+}
 .component-timeline { display: flex; justify-content: space-between; margin: 18px 0 10px 0; }
 .timeline-step { text-align: center; flex: 1; position: relative; }
 .timeline-dot { display: block; width: 16px; height: 16px; border-radius: 50%; background: #BDC3C7; margin: 0 auto 4px auto; }
@@ -323,3 +526,79 @@ body {
 .component-details { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 24px; }
 .spinner { display: inline-block; width: 18px; height: 18px; border: 3px solid #3498DB; border-top: 3px solid #fff; border-radius: 50%; animation: spin 1s linear infinite; margin-left: 8px; }
 @keyframes spin { 100% { transform: rotate(360deg); } }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+
+body.sidebar-open {
+  overflow: hidden;
+}
+.sidebar-overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: rgba(44,62,80,0.25);
+  z-index: 119;
+  transition: opacity 0.2s;
+}
+.supplydna-sidebar {
+  transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+}
+.supplydna-sidebar.open {
+  z-index: 120;
+}
+.supplydna-header {
+  z-index: 121;
+}
+
+.enhanced-burger {
+  font-size: 2rem;
+  border: 1.5px solid #e5e8ec;
+  border-radius: 8px;
+  background: #fff;
+  color: #2C3E50;
+  transition: box-shadow 0.2s, border-color 0.2s, background 0.2s;
+  padding: 6px 14px;
+  margin-right: 4px;
+  cursor: pointer;
+}
+.enhanced-burger:hover, .enhanced-burger:focus {
+  background: #f3f6fa;
+  border-color: #3498DB;
+  box-shadow: 0 2px 8px rgba(44,62,80,0.10);
+  outline: none;
+}
+
+.mobile-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 56px;
+  background: #fff;
+  z-index: 200;
+  box-shadow: 0 2px 8px rgba(44,62,80,0.08);
+  padding: 0 10px;
+  border-bottom: 1.5px solid #e5e8ec;
+}
+@media (min-width: 601px) {
+  .mobile-header-bar, .mobile-only, .sidebar-toggle-btn, .mobile-search-btn { display: none !important; }
+}
+@media (max-width: 600px) {
+  .mobile-header-bar { display: flex !important; }
+  .supplydna-header { margin-top: 56px; }
+  .sidebar-toggle-btn, .mobile-search-btn { display: inline-flex !important; }
+}
+
+.global-loading-overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: rgba(255,255,255,0.6);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

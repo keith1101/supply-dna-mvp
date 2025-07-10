@@ -1,8 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { BrowserProvider, Contract } from 'ethers';
 import QrScanner from 'qr-scanner';
-import { FaGauge, FaDna, FaChartLine, FaFileLines, FaGear, FaTruck, FaMicroscope, FaListCheck, FaBell, FaUser, FaMagnifyingGlass } from 'react-icons/fa6';
+import { FaGauge, FaDna, FaChartLine, FaFileLines, FaGear, FaTruck, FaMicroscope, FaListCheck, FaBell, FaUser, FaMagnifyingGlass, FaBars, FaXmark, FaCircleCheck, FaTriangleExclamation } from 'react-icons/fa6';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Legend } from 'recharts';
+import TraceabilityView from './components/TraceabilityView';
+import AnalyticsView from './components/AnalyticsView';
+import ReportsView from './components/ReportsView';
+import SettingsView from './components/SettingsView';
+import RegisterComponentView from './components/RegisterComponentView';
+import QRLookupCard from './components/QRLookupCard';
+import Sparkline from './components/Sparkline';
+import Sidebar from './components/Sidebar';
+// Remove import Header from './components/Header';
 
 const sidebarMenu = [
   { label: 'Dashboard', icon: <FaGauge /> },
@@ -85,206 +94,6 @@ const abi = [
 ];
 const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS;
 
-function Sparkline({ data, color }) {
-  const max = Math.max(...data);
-  const min = Math.min(...data);
-  const points = data.map((v, i) => {
-    const x = (i * 80) / (data.length - 1);
-    const y = 28 - ((v - min) / (max - min || 1)) * 18 - 5;
-    return `${x},${y}`;
-  }).join(' ');
-  return (
-    <svg className="supplydna-sparkline" viewBox="0 0 80 28">
-      <polyline fill="none" stroke={color} strokeWidth="2" points={points} />
-    </svg>
-  );
-}
-
-function QRLookupCard({ id, setId, handleScannedInput, loading, scanning, setScanning, fileMode, setFileMode, handleFile, videoRef, error, component }) {
-  // Define the stages for the timeline
-  const stages = ['Genesis', 'Supplier', 'Manufacturer', 'Assembly', 'Distribution', 'Customer'];
-  // Try to determine the current stage from the component (if possible)
-  let currentStageIdx = -1;
-  if (component && component.batch) {
-    // Example: use batch or another field to determine stage (customize as needed)
-    // For now, just highlight all if found
-    currentStageIdx = stages.length - 1;
-  }
-  return (
-    <section className="supplydna-card enhanced-lookup-card">
-      <div className="supplydna-card-title" style={{display: 'flex', alignItems: 'center', gap: 8}}>
-        <FaDna style={{color: '#3498DB', fontSize: 24}} />
-        Component Lookup
-        {loading && <span className="spinner" />}
-        {component && !error && <span className="status-badge success">Found</span>}
-        {error && <span className="status-badge error">Error</span>}
-      </div>
-      <div className="lookup-input-row">
-        <input
-          value={id}
-          onChange={(e) => setId(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && handleScannedInput(id)}
-          placeholder="Enter UUID or JSON"
-          className="lookup-input"
-        />
-        <button
-          onClick={() => handleScannedInput(id)}
-          disabled={loading}
-          className="lookup-btn"
-        >
-          Lookup
-        </button>
-        <span className="uuid-chip">{id && <>{id}</>}</span>
-      </div>
-      <div className="lookup-actions">
-        <button onClick={() => { setScanning(true); setFileMode(false); }} className="lookup-action-btn">📷 Scan Camera</button>
-        <button onClick={() => { setFileMode(true); setScanning(false); }} className="lookup-action-btn">📁 Upload QR</button>
-      </div>
-      {scanning && (
-        <div className="mb-4">
-          <video ref={videoRef} autoPlay playsInline className="w-full rounded-lg" />
-        </div>
-      )}
-      {fileMode && (
-        <div className="mb-4">
-          <input type="file" accept="image/*" onChange={handleFile} />
-          <button onClick={() => setFileMode(false)} className="cancel-btn">Cancel</button>
-        </div>
-      )}
-      {error && <div className="lookup-error">{error}</div>}
-      {component && !error && (
-        <>
-          <div className="component-timeline">
-            {stages.map((stage, idx) => (
-              <div key={stage} className={`timeline-step${idx <= currentStageIdx ? ' active' : ''}`}>
-                <span className="timeline-dot" />
-                <span className="timeline-label">{stage}</span>
-              </div>
-            ))}
-          </div>
-          <div className="component-details">
-            <div><strong>ID:</strong> {component.id}</div>
-            <div><strong>Name:</strong> {component.name}</div>
-            <div><strong>Supplier:</strong> {component.supplier}</div>
-            <div><strong>Batch:</strong> {component.batch}</div>
-            <div><strong>Date:</strong> {component.date}</div>
-          </div>
-        </>
-      )}
-    </section>
-  );
-}
-
-function TraceabilityView() {
-  return (
-    <div className="supplydna-dashboard" style={{ minHeight: 400 }}>
-      <div className="supplydna-card" style={{ minWidth: 320 }}>
-        <div className="supplydna-card-title"><FaDna /> Traceability</div>
-        <p style={{ color: '#7F8C8D' }}>View the full trace history, chain of custody, or a map of component movements here.</p>
-      </div>
-    </div>
-  );
-}
-
-function AnalyticsView() {
-  return (
-    <div className="supplydna-dashboard" style={{ minHeight: 400 }}>
-      <div className="supplydna-card" style={{ minWidth: 320 }}>
-        <div className="supplydna-card-title"><FaChartLine /> Analytics</div>
-        <p style={{ color: '#7F8C8D' }}>Visualize trends, KPIs, and advanced supply chain analytics here.</p>
-      </div>
-    </div>
-  );
-}
-
-function ReportsView() {
-  return (
-    <div className="supplydna-dashboard" style={{ minHeight: 400 }}>
-      <div className="supplydna-card" style={{ minWidth: 320 }}>
-        <div className="supplydna-card-title"><FaFileLines /> Reports</div>
-        <p style={{ color: '#7F8C8D' }}>Generate, download, and review supply chain reports here.</p>
-      </div>
-    </div>
-  );
-}
-
-function SettingsView() {
-  return (
-    <div className="supplydna-dashboard" style={{ minHeight: 400 }}>
-      <div className="supplydna-card" style={{ minWidth: 320 }}>
-        <div className="supplydna-card-title"><FaGear /> Settings</div>
-        <p style={{ color: '#7F8C8D' }}>Manage your account, preferences, and system settings here.</p>
-      </div>
-    </div>
-  );
-}
-
-function RegisterComponentView({ onRegisterSuccess }) {
-  const [form, setForm] = React.useState({ id: '', name: '', supplier: '', batch: '', date: '', password: '' });
-  const [loading, setLoading] = React.useState(false);
-  const [error, setError] = React.useState('');
-  const [success, setSuccess] = React.useState('');
-
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-    setError('');
-    setSuccess('');
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
-    setSuccess('');
-    if (form.password !== 'password') {
-      setError('Incorrect password.');
-      return;
-    }
-    if (!form.id || !form.name || !form.supplier || !form.batch || !form.date) {
-      setError('All fields are required.');
-      return;
-    }
-    try {
-      setLoading(true);
-      if (!window.ethereum) {
-        setError('MetaMask is required.');
-        return;
-      }
-      await window.ethereum.request({ method: 'eth_requestAccounts' });
-      const provider = new BrowserProvider(window.ethereum);
-      const signer = await provider.getSigner();
-      const contract = new Contract(contractAddress, abi, signer);
-      const tx = await contract.registerComponent(form.id, form.name, form.supplier, form.batch, form.date);
-      await tx.wait();
-      setSuccess('Component registered successfully!');
-      setForm({ id: '', name: '', supplier: '', batch: '', date: '', password: '' });
-      if (onRegisterSuccess) onRegisterSuccess();
-    } catch (err) {
-      setError('Registration failed. ' + (err?.reason || err?.message || ''));
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  return (
-    <div className="supplydna-dashboard" style={{ minHeight: 400, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-      <form className="supplydna-card" style={{ minWidth: 340, maxWidth: 400 }} onSubmit={handleSubmit}>
-        <div className="supplydna-card-title"><FaDna /> Register Component</div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-          <input name="id" value={form.id} onChange={handleChange} placeholder="Component ID" className="lookup-input" />
-          <input name="name" value={form.name} onChange={handleChange} placeholder="Name" className="lookup-input" />
-          <input name="supplier" value={form.supplier} onChange={handleChange} placeholder="Supplier" className="lookup-input" />
-          <input name="batch" value={form.batch} onChange={handleChange} placeholder="Batch" className="lookup-input" />
-          <input name="date" value={form.date} onChange={handleChange} placeholder="Date" className="lookup-input" type="date" />
-          <input name="password" value={form.password} onChange={handleChange} placeholder="Password" className="lookup-input" type="password" />
-        </div>
-        <button type="submit" className="lookup-btn" style={{ marginTop: 18 }} disabled={loading}>{loading ? 'Registering...' : 'Register'}</button>
-        {error && <div className="lookup-error" style={{ marginTop: 10 }}>{error}</div>}
-        {success && <div className="status-badge success" style={{ marginTop: 10 }}>{success}</div>}
-      </form>
-    </div>
-  );
-}
-
 export default function App() {
   // State for navigation
   const [activeView, setActiveView] = useState('Dashboard');
@@ -301,6 +110,17 @@ export default function App() {
     const stored = localStorage.getItem('recentComponents');
     return stored ? JSON.parse(stored) : recentComponentsDemo;
   });
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const sidebarRef = useRef();
+  // Remove showMobileSearch state
+
+  // Auto-close sidebar on desktop resize
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 601px)');
+    const handler = (e) => { if (e.matches) setSidebarOpen(false); };
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
 
   useEffect(() => {
     localStorage.setItem('recentComponents', JSON.stringify(recentComponents));
@@ -325,6 +145,42 @@ export default function App() {
       scanner?.stop();
     };
   }, [scanning]);
+
+  useEffect(() => {
+    if (sidebarOpen) {
+      document.body.classList.add('sidebar-open');
+    } else {
+      document.body.classList.remove('sidebar-open');
+    }
+    return () => document.body.classList.remove('sidebar-open');
+  }, [sidebarOpen]);
+
+  // Trap focus in sidebar when open
+  useEffect(() => {
+    if (!sidebarOpen) return;
+    const focusable = sidebarRef.current?.querySelectorAll('a,button,[tabindex]:not([tabindex="-1"])');
+    if (!focusable || focusable.length === 0) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    function handleTab(e) {
+      if (e.key !== 'Tab') return;
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault(); last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault(); first.focus();
+      }
+    }
+    function handleEsc(e) {
+      if (e.key === 'Escape') setSidebarOpen(false);
+    }
+    document.addEventListener('keydown', handleTab);
+    document.addEventListener('keydown', handleEsc);
+    first.focus();
+    return () => {
+      document.removeEventListener('keydown', handleTab);
+      document.removeEventListener('keydown', handleEsc);
+    };
+  }, [sidebarOpen]);
 
   const handleScannedInput = (raw) => {
     try {
@@ -392,13 +248,6 @@ export default function App() {
       } catch (e) {
         setError('Could not scan QR from image.');
       }
-    }
-  };
-
-  // Header search bar triggers lookup
-  const handleHeaderSearch = (e) => {
-    if (e.key === 'Enter') {
-      handleScannedInput(id);
     }
   };
 
@@ -579,50 +428,36 @@ export default function App() {
     mainContent = <RegisterComponentView onRegisterSuccess={() => setActiveView('Dashboard')} />;
   }
 
+  const isMobile = window.innerWidth <= 600;
+
   return (
     <div style={{ minHeight: '100vh', display: 'flex' }}>
+      {loading && (
+        <div className="global-loading-overlay">
+          <span className="spinner" style={{width:48,height:48,borderWidth:6}} />
+        </div>
+      )}
+      {/* Sidebar Overlay for mobile */}
+      {sidebarOpen && <div className="sidebar-overlay" onClick={() => setSidebarOpen(false)} aria-modal="true" aria-label="Sidebar overlay" tabIndex={-1} style={{position:'fixed',top:0,left:0,width:'100vw',height:'100vh',zIndex:99,background:'rgba(44,62,80,0.25)'}} />}
       {/* Sidebar */}
-      <aside className="supplydna-sidebar">
-        <div className="supplydna-logo">Supply <span style={{ color: '#2ECC71' }}>DNA</span></div>
-        <nav>
-          <ul>
-            {sidebarMenu.map((item) => (
-              <li
-                key={item.label}
-                className={activeView === item.label ? 'active' : ''}
-                onClick={() => setActiveView(item.label)}
-                style={{ userSelect: 'none' }}
-              >
-                <span className="sidebar-icon">{item.icon}</span>
-                <span>{item.label}</span>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </aside>
+      <Sidebar
+        activeView={activeView}
+        setActiveView={setActiveView}
+        sidebarOpen={sidebarOpen}
+        setSidebarOpen={setSidebarOpen}
+        sidebarMenu={sidebarMenu}
+        isMobile={isMobile}
+        ref={sidebarRef}
+      />
       {/* Main Content */}
       <div className="supplydna-main">
-        {/* Header */}
-        <header className="supplydna-header">
-          <div className="section-title">{activeView}</div>
-          <div className="search-bar">
-            <FaMagnifyingGlass className="search-icon" />
-            <input
-              type="text"
-              placeholder="Search by Component ID..."
-              value={id}
-              onChange={e => setId(e.target.value)}
-              onKeyDown={handleHeaderSearch}
-            />
+        {isMobile && (
+          <div className="mobile-header-bar mobile-only">
+            <button className="sidebar-toggle-btn enhanced-burger" onClick={() => setSidebarOpen(v => !v)} aria-label={sidebarOpen ? 'Close sidebar' : 'Open sidebar'}>
+              {sidebarOpen ? <FaXmark /> : <FaBars />}
+            </button>
           </div>
-          <div className="user-actions">
-            <span className="icon-badge">
-              <FaBell className="header-icon" />
-              <span className="badge">3</span>
-            </span>
-            <FaUser className="header-icon" />
-          </div>
-        </header>
+        )}
         {/* Main Content Area */}
         {mainContent}
       </div>
