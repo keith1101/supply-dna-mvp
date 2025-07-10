@@ -297,7 +297,14 @@ export default function App() {
   const [fileMode, setFileMode] = useState(false);
   const videoRef = useRef();
   // Recent lookups
-  const [recentComponents, setRecentComponents] = useState(recentComponentsDemo);
+  const [recentComponents, setRecentComponents] = useState(() => {
+    const stored = localStorage.getItem('recentComponents');
+    return stored ? JSON.parse(stored) : recentComponentsDemo;
+  });
+
+  useEffect(() => {
+    localStorage.setItem('recentComponents', JSON.stringify(recentComponents));
+  }, [recentComponents]);
 
   useEffect(() => {
     let scanner;
