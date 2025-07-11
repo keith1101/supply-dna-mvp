@@ -11,6 +11,8 @@ import RegisterComponentView from './components/RegisterComponentView';
 import QRLookupCard from './components/QRLookupCard';
 import Sparkline from './components/Sparkline';
 import Sidebar from './components/Sidebar';
+import NFTDisplay from './components/NFTDisplay';
+import ErrorBoundary from './components/ErrorBoundary';
 // Remove import Header from './components/Header';
 
 const sidebarMenu = [
@@ -89,8 +91,11 @@ const recentComponentsDemo = [
 ];
 
 const abi = [
-  'function components(string) view returns (string id, string name, string supplier, string batch, string date)',
-  'function registerComponent(string id, string name, string supplier, string batch, string date)'
+  'function components(string) view returns (string id, string name, string supplier, string batch, string date, string metadataURI)',
+  'function registerComponent(string id, string name, string supplier, string batch, string date, string metadataURI)',
+  'function getComponent(string id) view returns (string id, string name, string supplier, string batch, string date, string metadataURI)',
+  'function getTokenId(string id) view returns (uint256)',
+  'function tokenURI(uint256 tokenId) view returns (string)'
 ];
 const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS;
 
@@ -209,6 +214,8 @@ export default function App() {
       const provider = new BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();
       const contract = new Contract(contractAddress, abi, signer);
+      
+      // Get component data
       const data = await contract.components(uuid);
       const parsed = {
         id: data[0],
@@ -216,10 +223,21 @@ export default function App() {
         supplier: data[2],
         batch: data[3],
         date: data[4],
+        metadataURI: data[5],
       };
+      
       if (!parsed.id || parsed.id.trim() === '') {
         setError('Component not found for this UUID!');
       } else {
+        // Get token ID for the component
+        try {
+          const tokenId = await contract.getTokenId(uuid);
+          parsed.tokenId = tokenId.toString();
+        } catch (tokenError) {
+          console.warn('Could not fetch token ID:', tokenError);
+          parsed.tokenId = '0'; // Default if token ID not available
+        }
+        
         setComponent(parsed);
         setRecentComponents((prev) => [
           { 
@@ -339,6 +357,13 @@ export default function App() {
           error={error}
           component={component}
         />
+        {component && !error && (
+          <NFTDisplay 
+            component={component} 
+            tokenId={component.tokenId}
+            network="polygon"
+          />
+        )}
         {/* Dashboard Cards */}
         <div className="supplydna-dashboard">
           {/* Component Lifecycle Card */}
@@ -403,13 +428,25 @@ export default function App() {
                 </tr>
               </thead>
               <tbody>
-                {recentComponents.map((row) => (
-                  <tr key={row.id}>
-                    <td className="comp-id">{row.id}</td>
-                    <td className={`status${row.statusClass ? ' ' + row.statusClass : ''}`}>{row.status}</td>
-                    <td className="timestamp">{row.updated}</td>
-                  </tr>
-                ))}
+                {recentComponents
+                  .slice()
+                  .sort((a, b) => {
+                    // Parse date and time in 'DD/MM/YYYY HH:mm' format
+                    const parse = (row) => {
+                      const [date, time] = row.updated.split(' ');
+                      const [day, month, year] = date.split('/').map(Number);
+                      const [hour, minute] = time.split(':').map(Number);
+                      return new Date(year, month - 1, day, hour, minute).getTime();
+                    };
+                    return parse(b) - parse(a);
+                  })
+                  .map((row) => (
+                    <tr key={row.id + row.updated}>
+                      <td className="comp-id">{row.id}</td>
+                      <td className={`status${row.statusClass ? ' ' + row.statusClass : ''}`}>{row.status}</td>
+                      <td className="timestamp">{row.updated}</td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </section>
@@ -431,6 +468,7 @@ export default function App() {
   const isMobile = window.innerWidth <= 600;
 
   return (
+    <ErrorBoundary>
     <div style={{ minHeight: '100vh', display: 'flex' }}>
       {loading && (
         <div className="global-loading-overlay">
@@ -462,5 +500,6 @@ export default function App() {
         {mainContent}
       </div>
     </div>
+    </ErrorBoundary>
   );
 }

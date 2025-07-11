@@ -602,3 +602,151 @@ body.sidebar-open {
   align-items: center;
   justify-content: center;
 }
+
+/* NFT Display Styles */
+.nft-display {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.nft-image-container {
+  text-align: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.nft-image {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.nft-details {
+  flex: 1;
+}
+
+.nft-info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #ecf0f1;
+}
+
+.nft-info-row:last-of-type {
+  border-bottom: none;
+}
+
+.nft-label {
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 0.9em;
+}
+
+.nft-value-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nft-value {
+  font-family: 'Courier New', monospace;
+  background: #f8f9fa;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.85em;
+  color: #495057;
+}
+
+.copy-btn {
+  background: none;
+  border: none;
+  color: #3498db;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.copy-btn:hover {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
+.nft-attributes {
+  margin-top: 15px;
+}
+
+.attributes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.attribute-item {
+  background: #f8f9fa;
+  padding: 10px;
+  border-radius: 6px;
+  border-left: 3px solid #3498db;
+}
+
+.attribute-type {
+  display: block;
+  font-size: 0.8em;
+  color: #7f8c8d;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.attribute-value {
+  display: block;
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 0.9em;
+}
+
+.explorer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #3498db;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.explorer-link:hover {
+  background: #2980b9;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .nft-display {
+    gap: 15px;
+  }
+  
+  .nft-image {
+    max-width: 250px;
+  }
+  
+  .attributes-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .nft-info-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+}
