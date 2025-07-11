@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { BrowserProvider, Contract } from 'ethers';
 import QrScanner from 'qr-scanner';
-import { FaGauge, FaDna, FaChartLine, FaFileLines, FaGear, FaTruck, FaMicroscope, FaListCheck, FaBell, FaUser, FaMagnifyingGlass, FaBars, FaXmark, FaCircleCheck, FaTriangleExclamation } from 'react-icons/fa6';
+import { FaGauge, FaGear, FaListCheck, FaXmark } from 'react-icons/fa6';
+import { FaDna, FaChartLine, FaFileAlt, FaTruck, FaMicroscope, FaBell, FaUser, FaBars, FaCheckCircle, FaExclamationTriangle } from 'react-icons/fa';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Legend } from 'recharts';
 import TraceabilityView from './components/TraceabilityView';
 import AnalyticsView from './components/AnalyticsView';
@@ -13,13 +14,15 @@ import Sparkline from './components/Sparkline';
 import Sidebar from './components/Sidebar';
 import NFTDisplay from './components/NFTDisplay';
 import ErrorBoundary from './components/ErrorBoundary';
-// Remove import Header from './components/Header';
+import Header from './components/Header';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const sidebarMenu = [
   { label: 'Dashboard', icon: <FaGauge /> },
   { label: 'Traceability', icon: <FaDna /> },
   { label: 'Analytics', icon: <FaChartLine /> },
-  { label: 'Reports', icon: <FaFileLines /> },
+  { label: 'Reports', icon: <FaFileAlt /> },
   { label: 'Settings', icon: <FaGear /> },
   { label: 'Register', icon: <FaDna /> },
 ];
@@ -289,8 +292,22 @@ export default function App() {
     highlight: idx === currentStageIdx,
   }));
 
+  // Compute supplier metrics from recentComponents (demo; upgrade to all components when available)
+  const supplierMetrics = React.useMemo(() => {
+    const supplierMap = {};
+    recentComponents.forEach((comp) => {
+      const supplier = comp.supplier || (comp.status && comp.status.split('-')[0].trim()) || 'Unknown';
+      if (!supplierMap[supplier]) supplierMap[supplier] = new Set();
+      supplierMap[supplier].add(comp.id);
+    });
+    return Object.entries(supplierMap).map(([name, ids]) => ({
+      name,
+      supplied: ids.size,
+    }));
+  }, [recentComponents]);
+
   // Dynamic supplier metrics: highlight supplier
-  const supplierBarDataDynamic = supplierBarData.map(sup => ({
+  const supplierBarDataDynamic = supplierMetrics.map(sup => ({
     ...sup,
     highlight: component && component.supplier && sup.name.toLowerCase() === component.supplier.toLowerCase(),
   }));
@@ -391,15 +408,10 @@ export default function App() {
                 <XAxis dataKey="name" tick={{ fill: '#7F8C8D', fontSize: 13 }} axisLine={{ stroke: '#BDC3C7' }} />
                 <YAxis tick={{ fill: '#7F8C8D', fontSize: 13 }} axisLine={{ stroke: '#BDC3C7' }} />
                 <Tooltip />
-                <Legend />
-                <Bar dataKey="delivery" fill="#2ECC71" shape={makeCustomBarShape('#B5EAD7', '#2ECC71')} name="On-time Delivery" barSize={24} />
-                <Bar dataKey="quality" fill="#3498DB" shape={makeCustomBarShape('#A7C7E7', '#3498DB')} name="Quality Score" barSize={24} />
-                <Bar dataKey="supplied" fill="#F39C12" shape={makeCustomBarShape('#FFD6A5', '#F39C12')} name="Components Supplied" barSize={24} />
+                <Bar dataKey="supplied" fill="#F39C12" name="Components Supplied" barSize={32} />
               </BarChart>
             </ResponsiveContainer>
             <div className="supplydna-chart-legend">
-              <span><span className="dot" style={{ background: '#2ECC71' }}></span> On-time Delivery</span>
-              <span><span className="dot" style={{ background: '#3498DB' }}></span> Quality Score</span>
               <span><span className="dot" style={{ background: '#F39C12' }}></span> Components Supplied</span>
             </div>
           </section>
@@ -469,7 +481,9 @@ export default function App() {
 
   return (
     <ErrorBoundary>
-    <div style={{ minHeight: '100vh', display: 'flex' }}>
+    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <Header />
+      <div style={{ flex: 1, display: 'flex' }}>
       {loading && (
         <div className="global-loading-overlay">
           <span className="spinner" style={{width:48,height:48,borderWidth:6}} />
@@ -498,7 +512,9 @@ export default function App() {
         )}
         {/* Main Content Area */}
         {mainContent}
+        </div>
       </div>
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop closeOnClick pauseOnFocusLoss draggable pauseOnHover />
     </div>
     </ErrorBoundary>
   );

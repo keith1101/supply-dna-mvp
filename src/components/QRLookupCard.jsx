@@ -1,5 +1,5 @@
-import React from 'react';
-import { FaDna, FaCircleCheck, FaTriangleExclamation } from 'react-icons/fa6';
+import React, { useState, useEffect } from 'react';
+import { FaDna, FaCheckCircle, FaExclamationTriangle } from 'react-icons/fa';
 
 export default function QRLookupCard({ id, setId, handleScannedInput, loading, scanning, setScanning, fileMode, setFileMode, handleFile, videoRef, error, component }) {
   const stages = ['Genesis', 'Supplier', 'Manufacturer', 'Assembly', 'Distribution', 'Customer'];
@@ -13,8 +13,8 @@ export default function QRLookupCard({ id, setId, handleScannedInput, loading, s
         <FaDna style={{color: '#3498DB', fontSize: 24}} />
         Component Lookup
         {loading && <span className="spinner" />}
-        {component && !error && <span className="status-badge success"><FaCircleCheck style={{color:'#27AE60'}} /> Found</span>}
-        {error && <span className="status-badge error"><FaTriangleExclamation style={{color:'#E74C3C'}} /> Error</span>}
+        {component && !error && <span className="status-badge success"><FaCheckCircle style={{color:'#27AE60'}} /> Found</span>}
+{error && <span className="status-badge error"><FaExclamationTriangle style={{color:'#E74C3C'}} /> Error</span>}
       </div>
       <div className="lookup-input-row">
         <input
@@ -48,7 +48,7 @@ export default function QRLookupCard({ id, setId, handleScannedInput, loading, s
           <button onClick={() => setFileMode(false)} className="cancel-btn">Cancel</button>
         </div>
       )}
-      {error && <div className="lookup-error"><FaTriangleExclamation style={{color:'#E74C3C'}} /> {error}</div>}
+      {error && <div className="lookup-error"><FaExclamationTriangle style={{color:'#E74C3C'}} /> {error}</div>}
       {component && !error && (
         <>
           <div className="component-timeline">

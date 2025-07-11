@@ -750,3 +750,746 @@ body.sidebar-open {
     gap: 5px;
   }
 }
+
+/* --- Enhanced VFX and Professional UI Polish --- */
+
+body {
+  background: linear-gradient(135deg, #f8fafc 0%, #eaf6fb 100%);
+  min-height: 100vh;
+  animation: fadeInBody 0.8s cubic-bezier(.4,0,.2,1);
+}
+
+@keyframes fadeInBody {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.supplydna-main {
+  animation: fadeInMain 0.7s cubic-bezier(.4,0,.2,1);
+}
+@keyframes fadeInMain {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: none; }
+}
+
+.supplydna-card {
+  background: rgba(255,255,255,0.85);
+  box-shadow: 0 4px 32px 0 rgba(44,62,80,0.13), 0 1.5px 8px 0 rgba(44,62,80,0.07);
+  backdrop-filter: blur(8px) saturate(1.2);
+  transition: box-shadow 0.25s cubic-bezier(.4,0,.2,1), transform 0.18s cubic-bezier(.4,0,.2,1), background 0.18s;
+}
+.supplydna-card:hover {
+  box-shadow: 0 8px 40px 0 rgba(44,62,80,0.18), 0 2px 12px 0 rgba(44,62,80,0.10);
+  transform: translateY(-2px) scale(1.012);
+  background: rgba(255,255,255,0.93);
+}
+
+/* Buttons */
+button, .lookup-btn, .lookup-action-btn, .cancel-btn, .copy-btn {
+  transition: background 0.18s, color 0.18s, box-shadow 0.18s, border 0.18s, transform 0.13s;
+  outline: none;
+  box-shadow: 0 1.5px 6px rgba(44,62,80,0.04);
+}
+button:focus, .lookup-btn:focus, .lookup-action-btn:focus, .cancel-btn:focus, .copy-btn:focus {
+  box-shadow: 0 0 0 3px #b5eafd;
+  border-color: #3498DB;
+}
+button:hover, .lookup-btn:hover, .lookup-action-btn:hover, .cancel-btn:hover, .copy-btn:hover {
+  filter: brightness(1.07);
+  transform: translateY(-1px) scale(1.03);
+}
+
+/* Sidebar */
+.supplydna-sidebar {
+  box-shadow: 2px 0 24px rgba(44,62,80,0.10);
+  background: rgba(44,62,80,0.98);
+  transition: box-shadow 0.2s, background 0.2s, transform 0.3s cubic-bezier(.4,0,.2,1);
+}
+.supplydna-sidebar li {
+  transition: background 0.18s, color 0.18s, border-color 0.18s, font-weight 0.18s;
+}
+.supplydna-sidebar li.active, .supplydna-sidebar li:hover {
+  background: linear-gradient(90deg, #3498DB 60%, #2ECC71 100%);
+  color: #fff;
+  border-left: 4px solid #2ECC71;
+  font-weight: 600;
+  box-shadow: 0 2px 12px rgba(44,62,80,0.10);
+}
+
+/* Glassmorphism for overlays */
+.global-loading-overlay, .sidebar-overlay {
+  backdrop-filter: blur(6px) saturate(1.2);
+  background: rgba(44,62,80,0.18) !important;
+  transition: background 0.2s;
+}
+
+/* Spinner Animation */
+.spinner {
+  border: 3px solid #e3eaf3;
+  border-top: 3px solid #3498DB;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  background: transparent;
+}
+
+/* Focus outlines for accessibility */
+input:focus, select:focus, textarea:focus {
+  outline: 2px solid #3498DB;
+  box-shadow: 0 0 0 2px #b5eafd;
+  border-color: #3498DB;
+}
+
+/* Card fade-in */
+.supplydna-card {
+  animation: fadeInCard 0.6s cubic-bezier(.4,0,.2,1);
+}
+@keyframes fadeInCard {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Table row hover */
+.supplydna-recent-table tr:hover td {
+  background: #f0f8ff;
+  transition: background 0.18s;
+}
+
+/* Enhanced timeline dots */
+.timeline-dot {
+  box-shadow: 0 2px 8px #3498db33;
+  transition: background 0.18s, box-shadow 0.18s;
+}
+.timeline-step.active .timeline-dot {
+  background: linear-gradient(135deg, #3498DB 60%, #2ECC71 100%);
+  box-shadow: 0 4px 16px #2ecc7133;
+}
+
+/* Subtle card border */
+.supplydna-card {
+  border: 1.5px solid #e3eaf3;
+}
+
+/* Enhanced chart legend dots */
+.supplydna-chart-legend .dot {
+  box-shadow: 0 1.5px 6px #3498db22;
+}
+
+/* NFT image hover effect */
+.nft-image-container img {
+  transition: box-shadow 0.18s, transform 0.18s;
+  box-shadow: 0 2px 12px #3498db22;
+  border-radius: 12px;
+}
+.nft-image-container img:hover {
+  box-shadow: 0 6px 32px #2ecc7133;
+  transform: scale(1.04) rotate(-1deg);
+}
+
+/* Enhanced status badges */
+.status-badge {
+  box-shadow: 0 1.5px 6px #27ae6022;
+  font-size: 1.05em;
+}
+
+/* Subtle input shadow */
+.lookup-input, .lookup-input-row input {
+  box-shadow: 0 1.5px 6px #3498db11;
+}
+
+/* End Enhanced VFX */
+
+/* --- Advanced VFX Additions --- */
+
+/* Animated gradient background */
+body {
+  background: linear-gradient(120deg, #eaf6fb, #f8fafc, #e3e0ff, #d1f2eb);
+  background-size: 400% 400%;
+  animation: gradientMove 18s ease-in-out infinite;
+}
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Parallax card tilt on hover (requires .parallax-card class on cards) */
+.parallax-card {
+  perspective: 900px;
+  transition: transform 0.18s cubic-bezier(.4,0,.2,1);
+}
+.parallax-card-inner {
+  transition: transform 0.18s cubic-bezier(.4,0,.2,1);
+  will-change: transform;
+}
+
+/* Micro-interaction: Ripple effect on button click */
+.ripple {
+  position: relative;
+  overflow: hidden;
+}
+.ripple-effect {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  animation: ripple-animate 0.6s linear;
+  background: rgba(52,152,219,0.25);
+  pointer-events: none;
+  z-index: 2;
+}
+@keyframes ripple-animate {
+  to {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+/* Micro-interaction: Pulse on status badges */
+.status-badge.pulse {
+  animation: pulseBadge 1.2s infinite cubic-bezier(.4,0,.2,1);
+}
+@keyframes pulseBadge {
+  0% { box-shadow: 0 0 0 0 #27ae6044; }
+  70% { box-shadow: 0 0 0 10px #27ae6000; }
+  100% { box-shadow: 0 0 0 0 #27ae6000; }
+}
+
+/* NFT image floating animation */
+.nft-image-container img {
+  animation: floatNFT 3.5s ease-in-out infinite;
+}
+@keyframes floatNFT {
+  0%, 100% { transform: translateY(0) scale(1.01) rotate(-1deg); }
+  50% { transform: translateY(-10px) scale(1.04) rotate(1deg); }
+}
+
+/* Soft glow on active sidebar item */
+.supplydna-sidebar li.active {
+  box-shadow: 0 0 16px 2px #2ecc7166, 0 2px 12px rgba(44,62,80,0.10);
+  filter: drop-shadow(0 0 6px #2ecc7144);
+}
+
+/* Enhanced modal/overlay fade and scale-in */
+.global-loading-overlay, .sidebar-overlay {
+  animation: overlayFadeIn 0.5s cubic-bezier(.4,0,.2,1);
+}
+@keyframes overlayFadeIn {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Optional: Animated SVG background shapes (for .svg-bg class) */
+.svg-bg {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.13;
+  animation: svgBgMove 24s linear infinite alternate;
+}
+@keyframes svgBgMove {
+  0% { filter: blur(0px) hue-rotate(0deg); }
+  100% { filter: blur(2px) hue-rotate(30deg); }
+}
+
+/* End Advanced VFX Additions */
+
+/* --- Header VFX and Micro-Interactions --- */
+
+.supplydna-header {
+  background: rgba(255,255,255,0.82);
+  box-shadow: 0 4px 32px 0 rgba(44,62,80,0.13), 0 1.5px 8px 0 rgba(44,62,80,0.07);
+  backdrop-filter: blur(10px) saturate(1.2);
+  border-bottom: 1.5px solid #e3eaf3;
+  animation: headerFadeIn 0.7s cubic-bezier(.4,0,.2,1);
+}
+@keyframes headerFadeIn {
+  from { opacity: 0; transform: translateY(-24px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Ripple effect for buttons */
+.ripple {
+  position: relative;
+  overflow: hidden;
+}
+.ripple:focus {
+  outline: 2px solid #3498DB;
+  box-shadow: 0 0 0 2px #b5eafd;
+}
+.ripple-effect {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  animation: ripple-animate 0.6s linear;
+  background: rgba(52,152,219,0.25);
+  pointer-events: none;
+  z-index: 2;
+}
+@keyframes ripple-animate {
+  to {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+/* Bell swing animation */
+.vfx-bell {
+  transition: transform 0.18s;
+}
+.icon-badge:hover .vfx-bell, .icon-badge:focus .vfx-bell {
+  animation: bellSwing 0.7s cubic-bezier(.4,0,.2,1);
+}
+@keyframes bellSwing {
+  0% { transform: rotate(0deg); }
+  20% { transform: rotate(-18deg); }
+  40% { transform: rotate(14deg); }
+  60% { transform: rotate(-8deg); }
+  80% { transform: rotate(4deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* Badge pulse */
+.vfx-badge-pulse {
+  animation: badgePulse 1.2s infinite cubic-bezier(.4,0,.2,1);
+}
+@keyframes badgePulse {
+  0% { box-shadow: 0 0 0 0 #27ae6044; }
+  70% { box-shadow: 0 0 0 10px #27ae6000; }
+  100% { box-shadow: 0 0 0 0 #27ae6000; }
+}
+
+/* Account icon soft glow */
+.vfx-account {
+  transition: box-shadow 0.18s, filter 0.18s;
+}
+.ripple:hover .vfx-account, .ripple:focus .vfx-account {
+  box-shadow: 0 0 12px 2px #3498db44;
+  filter: drop-shadow(0 0 6px #2ecc7144);
+}
+
+/* Ensure icons are always visible and accessible on mobile */
+@media (max-width: 600px) {
+  .supplydna-header .user-actions {
+    gap: 16px;
+  }
+  .supplydna-header .header-row {
+    min-height: 48px;
+  }
+}
+
+/* End Header VFX */
+
+/* --- Header and Icon VFX: Professional & High Contrast --- */
+
+.supplydna-header {
+  background: rgba(255,255,255,0.96) !important;
+  border-bottom: 1.5px solid #e3eaf3;
+  box-shadow: 0 4px 32px 0 rgba(44,62,80,0.13), 0 1.5px 8px 0 rgba(44,62,80,0.07);
+  backdrop-filter: blur(16px) saturate(1.3);
+}
+
+.header-icon-btn {
+  background: #fff !important;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px #3498db22, 0 1.5px 6px #2ecc7122;
+  transition: box-shadow 0.18s, background 0.18s;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.header-icon-btn:focus {
+  outline: 2px solid #3498DB;
+  box-shadow: 0 0 0 3px #b5eafd, 0 2px 8px #3498db22;
+}
+.header-icon-btn:hover .vfx-bell {
+  color: #2176bd !important;
+}
+.header-icon-btn:hover .vfx-account {
+  color: #219d6d !important;
+}
+
+.badge {
+  background: #E74C3C !important;
+  color: #fff !important;
+  font-weight: 700;
+  font-size: 0.85em;
+  box-shadow: 0 2px 8px #e74c3c44;
+  border-radius: 50%;
+  min-width: 20px;
+  min-height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 6px;
+  border: 2px solid #fff;
+  z-index: 2;
+}
+
+.logo-pro {
+  font-family: 'Montserrat', 'Roboto', Arial, sans-serif;
+  font-weight: 900;
+  font-size: 2rem;
+  letter-spacing: 0.5px;
+  background: none;
+  text-shadow: 0 2px 8px #3498db11;
+}
+.logo-pro svg {
+  /* Gradient for FaDna icon */
+  background: linear-gradient(90deg, #3498DB 40%, #2ECC71 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  filter: drop-shadow(0 1px 4px #3498db33);
+}
+
+/* End Header/Icon VFX */
+
+/* --- Technical NFT Certificate VFX Enhancements --- */
+
+/* Technical font for IDs, hashes, and code fields */
+.code-font, .nft-value, .nft-label, .attribute-type, .attribute-value {
+  font-family: 'Fira Mono', 'JetBrains Mono', 'Menlo', 'Consolas', monospace !important;
+  letter-spacing: 0.02em;
+}
+
+/* NFT Card: technical look */
+.supplydna-card.nft-tech {
+  background: linear-gradient(135deg, #1a2233 0%, #232b3e 100%);
+  border-radius: 18px;
+  box-shadow: 0 6px 32px 0 rgba(44,62,80,0.22), 0 2px 12px 0 rgba(44,62,80,0.13);
+  border: 1.5px solid #2e3a4d;
+  position: relative;
+  overflow: hidden;
+  color: #eaf6fb;
+  margin-bottom: 32px;
+}
+
+/* Animated accent bar */
+.supplydna-card.nft-tech::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 8px;
+  background: linear-gradient(90deg, #00c3ff, #3a7bd5, #00ecbc, #3a7bd5, #00c3ff);
+  background-size: 200% 100%;
+  animation: accentBarMove 4s linear infinite;
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+  z-index: 2;
+}
+@keyframes accentBarMove {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+/* Card glow on hover */
+.supplydna-card.nft-tech:hover {
+  box-shadow: 0 8px 40px 0 #00c3ff44, 0 2px 12px 0 #00ecbc33;
+  border-color: #00c3ff;
+  transition: box-shadow 0.3s, border-color 0.3s;
+}
+
+/* NFT image avatar: add border and shadow */
+.nft-image-container > div, .nft-image-container > img {
+  border: 2.5px solid #00c3ff;
+  box-shadow: 0 2px 16px #00c3ff22;
+  background: #1a2233;
+}
+
+/* NFT headings */
+.supplydna-card-title, .nft-details h3, .nft-attributes h4 {
+  font-family: 'JetBrains Mono', 'Fira Mono', 'Menlo', 'Consolas', monospace !important;
+  color: #00c3ff;
+  letter-spacing: 0.04em;
+  font-weight: 700;
+}
+
+/* NFT info rows */
+.nft-info-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 8px 0;
+}
+.nft-label {
+  color: #00ecbc;
+  font-size: 1em;
+  min-width: 90px;
+}
+.nft-value-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #232b3e;
+  border-radius: 6px;
+  padding: 4px 10px;
+  border: 1.2px solid #2e3a4d;
+}
+.nft-value {
+  color: #eaf6fb;
+  font-size: 1.08em;
+}
+.copy-btn {
+  background: #00c3ff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 1px 4px #00c3ff33;
+}
+.copy-btn:active, .copy-btn:focus {
+  background: #00ecbc;
+  outline: none;
+}
+.copy-btn:after {
+  content: '';
+  display: inline-block;
+  margin-left: 4px;
+}
+
+/* NFT Attributes grid: technical look */
+.nft-attributes .attributes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 10px;
+  background: #232b3e;
+  border-radius: 8px;
+  border: 1.2px solid #2e3a4d;
+  padding: 10px;
+  margin-top: 6px;
+}
+.attribute-item {
+  background: #1a2233;
+  border: 1.2px dashed #00c3ff55;
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 0.98em;
+  color: #eaf6fb;
+  transition: background 0.2s, border-color 0.2s;
+}
+.attribute-item:hover {
+  background: #232b3e;
+  border-color: #00ecbc;
+}
+.attribute-type {
+  color: #00ecbc;
+  font-size: 0.98em;
+}
+.attribute-value {
+  color: #fff;
+  font-size: 1.08em;
+  font-weight: 600;
+}
+
+/* NFT details paragraph */
+.nft-details p {
+  color: #b2c7d9;
+  font-size: 1.02em;
+  margin-bottom: 10px;
+}
+
+/* Explorer link button */
+.explorer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #232b3e;
+  color: #00c3ff;
+  border: 1.2px solid #00c3ff;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-family: 'JetBrains Mono', 'Fira Mono', monospace;
+  font-size: 1em;
+  font-weight: 600;
+  margin-top: 10px;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.explorer-link:hover, .explorer-link:focus {
+  background: #00c3ff;
+  color: #fff;
+  border-color: #00ecbc;
+}
+
+/* Micro-interactions */
+.supplydna-card.nft-tech:active {
+  box-shadow: 0 8px 40px 0 #00ecbc55, 0 2px 12px 0 #00c3ff33;
+  border-color: #00ecbc;
+}
+.nft-image-container > div:active, .nft-image-container > img:active {
+  box-shadow: 0 4px 24px #00ecbc33;
+  border-color: #00ecbc;
+}
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+  .supplydna-card.nft-tech {
+    padding: 12px 4px 12px 4px;
+    border-radius: 12px;
+  }
+  .nft-image-container > div, .nft-image-container > img {
+    width: 80px !important;
+    height: 80px !important;
+  }
+  .nft-details h3, .nft-attributes h4 {
+    font-size: 1.1em !important;
+  }
+}
+
+/* --- Technical Sidebar VFX Enhancements --- */
+
+.supplydna-sidebar.nft-tech {
+  background: linear-gradient(135deg, #181f2a 0%, #232b3e 100%) !important;
+  box-shadow: 0 8px 40px 0 #00c3ff33, 0 2px 12px 0 #00ecbc22;
+  border-right: 2.5px solid #00c3ff;
+  font-family: 'JetBrains Mono', 'Fira Mono', 'Menlo', 'Consolas', monospace !important;
+  position: relative;
+  z-index: 120;
+  overflow: visible;
+}
+.sidebar-accent-bar {
+  position: absolute;
+  left: 0; top: 0; bottom: 0; width: 7px;
+  background: linear-gradient(180deg, #00c3ff, #00ecbc, #3a7bd5, #00c3ff);
+  background-size: 100% 200%;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  animation: sidebarAccentMove 5s linear infinite;
+  z-index: 2;
+}
+@keyframes sidebarAccentMove {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 0% 100%; }
+}
+.supplydna-logo.code-font {
+  font-family: 'JetBrains Mono', 'Fira Mono', monospace !important;
+  font-size: 1.5em;
+  font-weight: 900;
+  color: #00c3ff;
+  letter-spacing: 0.08em;
+  margin-bottom: 18px;
+  margin-top: 8px;
+  text-shadow: 0 2px 8px #00c3ff33;
+}
+.supplydna-sidebar.nft-tech ul {
+  margin-top: 18px;
+}
+.supplydna-sidebar.nft-tech li {
+  font-family: 'JetBrains Mono', 'Fira Mono', monospace !important;
+  font-size: 1.08rem;
+  color: #eaf6fb;
+  background: none;
+  border-left: 4px solid transparent;
+  border-radius: 8px 0 0 8px;
+  margin-bottom: 6px;
+  transition: background 0.18s, color 0.18s, border-color 0.18s, transform 0.18s, box-shadow 0.18s;
+  box-shadow: none;
+  position: relative;
+}
+.supplydna-sidebar.nft-tech li.active, .supplydna-sidebar.nft-tech li:hover {
+  background: #232b3e;
+  color: #00c3ff;
+  border-left: 4px solid #00ecbc;
+  font-weight: 700;
+  box-shadow: 0 2px 12px #00c3ff22;
+  transform: scale(1.04);
+  z-index: 3;
+}
+.supplydna-sidebar.nft-tech li .sidebar-icon {
+  font-size: 1.3em;
+  color: #00ecbc;
+  margin-right: 8px;
+  transition: color 0.18s, transform 0.18s;
+}
+.supplydna-sidebar.nft-tech li.active .sidebar-icon, .supplydna-sidebar.nft-tech li:hover .sidebar-icon {
+  color: #00c3ff;
+  transform: scale(1.18);
+}
+.supplydna-sidebar.nft-tech li span {
+  font-family: 'JetBrains Mono', 'Fira Mono', monospace !important;
+  font-size: 1.08rem;
+  letter-spacing: 0.03em;
+}
+@media (max-width: 800px) {
+  .supplydna-sidebar.nft-tech {
+    width: 60px !important;
+    min-width: 0;
+    padding: 16px 0 12px 0;
+  }
+  .supplydna-logo.code-font {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+  }
+  .supplydna-sidebar.nft-tech li span { display: none; }
+  .supplydna-sidebar.nft-tech.open li span { display: inline; }
+}
+@media (max-width: 600px) {
+  .supplydna-sidebar.nft-tech {
+    width: 80vw !important;
+    min-width: 0;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    position: fixed;
+    z-index: 100;
+    transform: translateX(-100%);
+    transition: transform 0.3s;
+    box-shadow: 2px 0 16px #00c3ff33;
+  }
+  .supplydna-sidebar.nft-tech.open {
+    transform: translateX(0);
+  }
+  .sidebar-accent-bar {
+    width: 5px;
+  }
+}
+
+/* =========================
+   Dark Mode Support
+   ========================= */
+[data-theme="dark"] {
+  --sidebar-bg: #23272b;
+  --sidebar-active: #3498DB;
+  --sidebar-text: #ecf0f1;
+  --header-bg: #23272b;
+  --header-text: #ecf0f1;
+  --main-bg: #181c20;
+  --card-bg: #23272b;
+  --card-shadow: 0 2px 12px 0 rgba(44,62,80,0.18);
+  --primary: #3498DB;
+  --primary-dark: #217dbb;
+  --secondary: #2ECC71;
+  --secondary-dark: #27AE60;
+  --neutral-light: #23272b;
+  --neutral-mid: #7F8C8D;
+  --neutral-dark: #bdc3c7;
+  --danger: #E74C3C;
+  --warning: #F39C12;
+  --border-radius: 10px;
+  background: #181c20;
+  color: #ecf0f1;
+}
+
+body[data-theme="dark"] {
+  background: #181c20;
+  color: #ecf0f1;
+}
+
+.supplydna-card, .supplydna-dashboard, .supplydna-header, .supplydna-sidebar {
+  background: var(--card-bg) !important;
+  color: var(--header-text) !important;
+}
+
+.supplydna-sidebar li.active, .supplydna-sidebar li:hover {
+  background: var(--sidebar-active) !important;
+  color: #fff !important;
+}
+
+/* Add more overrides as needed for dark mode */
