@@ -9,7 +9,8 @@ const IPFS_GATEWAYS = [
 ];
 
 // Configurable upload endpoint
-const UPLOAD_ENDPOINT = process.env.REACT_APP_PINATA_UPLOAD_ENDPOINT || '/api/pinata-upload';
+const UPLOAD_ENDPOINT = process.env.REACT_APP_PINATA_UPLOAD_ENDPOINT || 
+  (process.env.NODE_ENV === 'development' ? 'http://localhost:5001/upload' : '/api/pinata-upload');
 
 // Simple IPFS service using HTTP gateways
 export const uploadToIPFS = async (data) => {

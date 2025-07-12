@@ -34,9 +34,10 @@ Supply DNA Tracker is a modern React-based web application for tracking, verifyi
 
 ## Prerequisites
 
-- [Node.js](https://nodejs.org/) (v16+ recommended)
+- [Node.js](https://nodejs.org/) (v18+ recommended)
 - [MetaMask](https://metamask.io/) browser extension
 - Access to Polygon Amoy testnet
+- Pinata API keys (for IPFS uploads)
 
 ## Getting Started
 
@@ -45,20 +46,35 @@ Supply DNA Tracker is a modern React-based web application for tracking, verifyi
    git clone <repo-url>
    cd supplydna-frontend-2
    ```
+
 2. **Configure environment:**
-   - Copy `.env.example` to `.env` and set your deployed contract address:
-     ```
-     REACT_APP_CONTRACT_ADDRESS=0xYourContractAddress
-     ```
+   Create a `.env` file in the root directory with your configuration:
+   ```bash
+   # Pinata API Keys (required for local development)
+   # Get these from https://app.pinata.cloud/developers/api-keys
+   PINATA_API_KEY=your_pinata_api_key_here
+   PINATA_SECRET_API_KEY=your_pinata_secret_api_key_here
+   
+   # Optional: Override upload endpoint
+   # REACT_APP_PINATA_UPLOAD_ENDPOINT=http://localhost:5001/upload
+   ```
+
 3. **Install dependencies:**
    ```bash
    npm install
    ```
-4. **Start the development server:**
+
+4. **Start the development servers:**
    ```bash
+   # Option 1: Run both frontend and local upload server
+   npm run dev
+   
+   # Option 2: Run only the frontend (for production deployment)
    npm start
    ```
+   
    The app will be available at [http://localhost:3000](http://localhost:3000).
+   The local upload server will run at [http://localhost:5001](http://localhost:5001).
 
 ## Usage
 

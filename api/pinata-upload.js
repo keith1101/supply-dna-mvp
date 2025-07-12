@@ -1,29 +1,49 @@
-const express = require('express');
-const cors = require('cors');
-require('dotenv').config();
 const { PinataSDK } = require('pinata');
 
-const app = express();
-app.use(cors());
-app.use(express.json());
-
+// Initialize Pinata with API keys
 const pinata = new PinataSDK({
-  pinataJwt: process.env.PINATA_JWT,
-  // pinataGateway: "your-gateway.mypinata.cloud", // Optional, for custom gateway
+  pinataApiKey: process.env.PINATA_API_KEY,
+  pinataSecretApiKey: process.env.PINATA_SECRET_API_KEY
 });
 
-app.post('/upload', async (req, res) => {
-  console.log('> /upload hit', new Date().toISOString());
-  console.log('Request body:', req.body);
-  try {
-    const result = await pinata.upload.public.json(req.body);
-    console.log('Pinata result:', result);
-    res.json({ IpfsHash: result.cid });
-  } catch (error) {
-    console.error('Pinata error:', error);
-    res.status(500).json({ error: error.message, details: error });
+module.exports = async (req, res) => {
+  // Enable CORS
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  // Handle preflight requests
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();
+    return;
   }
-});
 
-const PORT = process.env.PORT || 5001;
-app.listen(PORT, () => console.log(`Pinata upload server running on port ${PORT}`)); 
+  // Only allow POST requests
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
+
+  try {
+    console.log('Pinata upload request received:', req.body);
+    
+    // Check if API keys are configured
+    if (!process.env.PINATA_API_KEY || !process.env.PINATA_SECRET_API_KEY) {
+      console.error('Pinata API keys not configured');
+      return res.status(500).json({ 
+        error: 'Pinata API keys not configured. Please set PINATA_API_KEY and PINATA_SECRET_API_KEY environment variables in Vercel.' 
+      });
+    }
+
+    // Upload JSON to IPFS using Pinata
+    const result = await pinata.pinJSONToIPFS(req.body);
+    console.log('Pinata upload successful:', result);
+    
+    // Return the IPFS hash
+    res.json({ IpfsHash: result.IpfsHash });
+  } catch (error) {
+    console.error('Pinata upload error:', error);
+    res.status(500).json({ 
+      error: 'Failed to upload to Pinata: ' + error.message 
+    });
+  }
+}; 
