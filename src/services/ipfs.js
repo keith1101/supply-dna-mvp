@@ -8,11 +8,14 @@ const IPFS_GATEWAYS = [
   'https://dweb.link/ipfs/'
 ];
 
+// Configurable upload endpoint
+const UPLOAD_ENDPOINT = process.env.REACT_APP_PINATA_UPLOAD_ENDPOINT || '/api/pinata-upload';
+
 // Simple IPFS service using HTTP gateways
 export const uploadToIPFS = async (data) => {
   try {
-    console.log('Uploading to Pinata …', data);   // <-- add this
-    const response = await fetch('http://localhost:5001/upload', {
+    console.log('Uploading to Pinata …', data);
+    const response = await fetch(UPLOAD_ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
