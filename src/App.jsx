@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { BrowserProvider, Contract } from 'ethers';
 import QrScanner from 'qr-scanner';
-import { FaGauge, FaGear, FaListCheck, FaXmark } from 'react-icons/fa6';
-import { FaDna, FaChartLine, FaFileAlt, FaTruck, FaMicroscope, FaBell, FaUser, FaBars, FaCheckCircle, FaExclamationTriangle } from 'react-icons/fa';
+import { FaChartLine, FaGear, FaListCheck, FaXmark } from 'react-icons/fa6';
+import { FaDna, FaFileAlt, FaTruck, FaMicroscope, FaBell, FaUser, FaBars, FaCheckCircle, FaExclamationTriangle, FaHome, FaTachometerAlt } from 'react-icons/fa';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Legend } from 'recharts';
 import TraceabilityView from './components/TraceabilityView';
 import AnalyticsView from './components/AnalyticsView';
@@ -15,11 +15,13 @@ import Sidebar from './components/Sidebar';
 import NFTDisplay from './components/NFTDisplay';
 import ErrorBoundary from './components/ErrorBoundary';
 import Header from './components/Header';
+import HomeView from './components/HomeView';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const sidebarMenu = [
-  { label: 'Dashboard', icon: <FaGauge /> },
+  { label: 'Home', icon: <FaHome /> },
+  { label: 'Dashboard', icon: <FaTachometerAlt /> },
   { label: 'Traceability', icon: <FaDna /> },
   { label: 'Analytics', icon: <FaChartLine /> },
   { label: 'Reports', icon: <FaFileAlt /> },
@@ -104,7 +106,7 @@ const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS;
 
 export default function App() {
   // State for navigation
-  const [activeView, setActiveView] = useState('Dashboard');
+  const [activeView, setActiveView] = useState('Home');
   // QR/lookup state
   const [id, setId] = useState('');
   const [component, setComponent] = useState(null);
@@ -357,7 +359,9 @@ export default function App() {
 
   // Main content switching
   let mainContent;
-  if (activeView === 'Dashboard') {
+  if (activeView === 'Home') {
+    mainContent = <HomeView onNavigate={setActiveView} />;
+  } else if (activeView === 'Dashboard') {
     mainContent = (
       <>
         <QRLookupCard

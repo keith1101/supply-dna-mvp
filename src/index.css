@@ -34,11 +34,52 @@ body {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  padding: 32px 0 24px 0;
+  padding: 0 0 24px 0;
   min-height: 100vh;
   position: fixed;
   left: 0; top: 0; bottom: 0;
   z-index: 10;
+}
+
+/* Sidebar Home Card */
+.sidebar-home-card {
+  background: linear-gradient(135deg, #3498DB, #2ECC71) !important;
+  border-radius: 12px !important;
+  padding: 16px !important;
+  margin: 16px !important;
+  color: white !important;
+  text-align: center !important;
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3) !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  border: none !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.sidebar-home-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.sidebar-home-card:hover::before {
+  left: 100%;
+}
+
+.sidebar-home-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(52, 152, 219, 0.4) !important;
+}
+
+.sidebar-home-card:focus {
+  outline: 2px solid rgba(255,255,255,0.5);
+  outline-offset: 2px;
 }
 .sidebar-header {
   display: flex;
@@ -465,6 +506,24 @@ body {
     width: 100vw !important;
     max-width: 100vw !important;
     left: 0;
+  }
+  
+  /* Mobile styles for home card */
+  .sidebar-home-card {
+    margin: 12px !important;
+    padding: 12px !important;
+  }
+  
+  .sidebar-home-card > div:first-child {
+    font-size: 1.5rem !important;
+  }
+  
+  .sidebar-home-card > div:nth-child(2) {
+    font-size: 1rem !important;
+  }
+  
+  .sidebar-home-card > div:nth-child(3) {
+    font-size: 0.8rem !important;
   }
 }
 @media (max-width: 400px) {
@@ -1493,3 +1552,672 @@ body[data-theme="dark"] {
 }
 
 /* Add more overrides as needed for dark mode */
+
+/* Home View Styles - Coinbase-inspired Design */
+.home-view {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+}
+
+/* Hero Section */
+.hero-section {
+  padding: 80px 36px 120px;
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  min-height: 80vh;
+}
+
+.hero-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  width: 100%;
+}
+
+.hero-text {
+  max-width: 600px;
+}
+
+.hero-title {
+  font-size: 4rem;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 24px;
+  color: #2C3E50;
+}
+
+.hero-title-main {
+  display: block;
+  color: #2C3E50;
+}
+
+.hero-title-accent {
+  display: block;
+  background: linear-gradient(135deg, #3498DB, #2ECC71);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-subtitle {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  color: #7F8C8D;
+  margin-bottom: 40px;
+  max-width: 500px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+}
+
+.cta-primary, .cta-secondary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 32px;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-primary {
+  background: linear-gradient(135deg, #3498DB, #2980B9);
+  color: white;
+  box-shadow: 0 8px 24px rgba(52, 152, 219, 0.3);
+}
+
+.cta-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(52, 152, 219, 0.4);
+}
+
+.cta-secondary {
+  background: white;
+  color: #3498DB;
+  border: 2px solid #3498DB;
+}
+
+.cta-secondary:hover {
+  background: #3498DB;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.cta-icon {
+  font-size: 1.2em;
+}
+
+.cta-arrow {
+  font-size: 0.9em;
+  transition: transform 0.3s ease;
+}
+
+.cta-primary:hover .cta-arrow {
+  transform: translateX(4px);
+}
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-top: 40px;
+}
+
+.stat-item {
+  text-align: center;
+  padding: 20px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(44, 62, 80, 0.08);
+  transition: transform 0.3s ease;
+}
+
+.stat-item:hover {
+  transform: translateY(-4px);
+}
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #3498DB;
+  margin-bottom: 8px;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: #7F8C8D;
+  font-weight: 500;
+}
+
+/* Hero Visual */
+.hero-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-card {
+  background: white;
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: 0 20px 60px rgba(44, 62, 80, 0.12);
+  max-width: 400px;
+  width: 100%;
+  transform: perspective(1000px) rotateY(-5deg);
+  transition: transform 0.3s ease;
+}
+
+.hero-card:hover {
+  transform: perspective(1000px) rotateY(0deg);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #ECF0F1;
+}
+
+.card-icon {
+  font-size: 1.5em;
+  color: #3498DB;
+}
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #2C3E50;
+}
+
+.nft-preview {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.nft-image {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #3498DB, #2ECC71);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nft-icon {
+  font-size: 1.8em;
+  color: white;
+}
+
+.nft-details {
+  flex: 1;
+}
+
+.nft-id {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2C3E50;
+  margin-bottom: 4px;
+}
+
+.nft-status {
+  font-size: 0.9rem;
+  color: #27AE60;
+  font-weight: 500;
+}
+
+.card-attributes {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.attribute {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.attr-label {
+  font-size: 0.9rem;
+  color: #7F8C8D;
+  font-weight: 500;
+}
+
+.attr-value {
+  font-size: 0.9rem;
+  color: #2C3E50;
+  font-weight: 600;
+}
+
+.attr-value.verified {
+  color: #27AE60;
+}
+
+/* Features Section */
+.features-section {
+  padding: 120px 36px;
+  background: white;
+}
+
+.section-header {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 80px;
+}
+
+.section-title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #2C3E50;
+  margin-bottom: 24px;
+}
+
+.section-subtitle {
+  font-size: 1.2rem;
+  color: #7F8C8D;
+  line-height: 1.6;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.feature-card {
+  background: white;
+  border-radius: 20px;
+  padding: 40px 32px;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(44, 62, 80, 0.08);
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--feature-color);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.feature-card:hover::before,
+.feature-card.active::before {
+  transform: scaleX(1);
+}
+
+.feature-card:hover,
+.feature-card.active {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 60px rgba(44, 62, 80, 0.15);
+}
+
+.feature-icon-wrapper {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, var(--feature-color), var(--feature-color)dd);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+  transition: transform 0.3s ease;
+}
+
+.feature-card:hover .feature-icon-wrapper {
+  transform: scale(1.1);
+}
+
+.feature-icon {
+  font-size: 2rem;
+  color: white;
+}
+
+.feature-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #2C3E50;
+  margin-bottom: 16px;
+}
+
+.feature-description {
+  font-size: 1rem;
+  color: #7F8C8D;
+  line-height: 1.6;
+}
+
+/* Benefits Section */
+.benefits-section {
+  padding: 120px 36px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.benefit-card {
+  background: white;
+  border-radius: 20px;
+  padding: 40px 32px;
+  box-shadow: 0 8px 32px rgba(44, 62, 80, 0.08);
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.benefit-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 60px rgba(44, 62, 80, 0.15);
+}
+
+.benefit-icon {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #3498DB, #2ECC71);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+  font-size: 2rem;
+  color: white;
+}
+
+.benefit-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #2C3E50;
+  margin-bottom: 16px;
+}
+
+.benefit-description {
+  font-size: 1rem;
+  color: #7F8C8D;
+  line-height: 1.6;
+}
+
+/* CTA Section */
+.cta-section {
+  padding: 120px 36px;
+  background: linear-gradient(135deg, #3498DB, #2980B9);
+  text-align: center;
+  color: white;
+}
+
+.cta-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.cta-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+.cta-subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 48px;
+  opacity: 0.9;
+}
+
+.cta-actions {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.cta-primary.large,
+.cta-secondary.large {
+  padding: 20px 40px;
+  font-size: 1.2rem;
+}
+
+.cta-primary.large {
+  background: white;
+  color: #3498DB;
+}
+
+.cta-secondary.large {
+  background: transparent;
+  color: white;
+  border: 2px solid white;
+}
+
+.cta-primary.large:hover {
+  background: #f8f9fa;
+  transform: translateY(-2px);
+}
+
+.cta-secondary.large:hover {
+  background: white;
+  color: #3498DB;
+  transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .hero-content {
+    grid-template-columns: 1fr;
+    gap: 60px;
+    text-align: center;
+  }
+  
+  .hero-title {
+    font-size: 3.5rem;
+  }
+  
+  .hero-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 60px 24px 80px;
+  }
+  
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.1rem;
+  }
+  
+  .hero-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .cta-primary,
+  .cta-secondary {
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .hero-stats {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .section-title {
+    font-size: 2.5rem;
+  }
+  
+  .features-grid,
+  .benefits-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .cta-title {
+    font-size: 2.5rem;
+  }
+  
+  .cta-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .cta-primary.large,
+  .cta-secondary.large {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section {
+    padding: 40px 16px 60px;
+  }
+  
+  .hero-title {
+    font-size: 2rem;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .cta-title {
+    font-size: 2rem;
+  }
+  
+  .features-section,
+  .benefits-section,
+  .cta-section {
+    padding: 80px 24px;
+  }
+}
+
+/* Animation Classes */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-text,
+.hero-visual,
+.feature-card,
+.benefit-card {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.feature-card:nth-child(2) { animation-delay: 0.1s; }
+.feature-card:nth-child(3) { animation-delay: 0.2s; }
+.feature-card:nth-child(4) { animation-delay: 0.3s; }
+
+.benefit-card:nth-child(2) { animation-delay: 0.1s; }
+.benefit-card:nth-child(3) { animation-delay: 0.2s; }
+.benefit-card:nth-child(4) { animation-delay: 0.3s; }
+
+[data-theme="dark"] .home-view {
+  background: linear-gradient(135deg, #181c24 0%, #232b36 100%);
+  color: #ECF0F1;
+}
+[data-theme="dark"] .hero-section,
+[data-theme="dark"] .features-section,
+[data-theme="dark"] .benefits-section,
+[data-theme="dark"] .cta-section {
+  background: none;
+  color: #ECF0F1;
+}
+[data-theme="dark"] .hero-card,
+[data-theme="dark"] .feature-card,
+[data-theme="dark"] .benefit-card {
+  background: #232b36;
+  color: #ECF0F1;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+}
+[data-theme="dark"] .feature-card.active,
+[data-theme="dark"] .feature-card:hover {
+  box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+}
+[data-theme="dark"] .feature-icon-wrapper,
+[data-theme="dark"] .benefit-icon {
+  background: linear-gradient(135deg, #2980B9, #27AE60);
+}
+[data-theme="dark"] .hero-title-main {
+  color: #ECF0F1;
+}
+[data-theme="dark"] .hero-title-accent {
+  background: linear-gradient(135deg, #6dd5fa, #27ae60);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+[data-theme="dark"] .stat-item {
+  background: #232b36;
+  color: #ECF0F1;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.18);
+}
+[data-theme="dark"] .stat-number {
+  color: #6dd5fa;
+}
+[data-theme="dark"] .cta-primary,
+[data-theme="dark"] .cta-primary.large {
+  background: linear-gradient(135deg, #2980B9, #27AE60);
+  color: #fff;
+}
+[data-theme="dark"] .cta-secondary,
+[data-theme="dark"] .cta-secondary.large {
+  background: #232b36;
+  color: #6dd5fa;
+  border: 2px solid #6dd5fa;
+}
+[data-theme="dark"] .cta-primary.large:hover {
+  background: #232b36;
+  color: #6dd5fa;
+}
+[data-theme="dark"] .cta-secondary.large:hover {
+  background: #6dd5fa;
+  color: #232b36;
+}
+[data-theme="dark"] .card-attributes .attr-label {
+  color: #b0b8c1;
+}
+[data-theme="dark"] .card-attributes .attr-value {
+  color: #ECF0F1;
+}
+[data-theme="dark"] .card-attributes .attr-value.verified {
+  color: #27AE60;
+}
